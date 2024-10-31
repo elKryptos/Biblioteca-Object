@@ -18,7 +18,5 @@ public class Constants {
     public static final String LIBRO_TROVATO = "Libro trovato!";
     public static final String LIBRO_NON_TROVATO = "Libro non trovato!";
     public static final String LIBRO_UPDATE = "Libro aggiornato correttamente";
-
-
-
+    
 }
