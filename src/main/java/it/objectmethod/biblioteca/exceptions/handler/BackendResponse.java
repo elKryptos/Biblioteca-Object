@@ -39,12 +39,15 @@ public class BackendResponse {
     }
 
 //    @ExceptionHandler(ConstraintViolationException.class)
-//    public <T> ResponseWrapper<T> handleConstraintViolationException(ConstraintViolationException e, HttpServletRequest request) {
+//    public ResponseEntity<ResponseWrapper<ErrorDetails>> handleConstraintViolationException(ConstraintViolationException e, HttpServletRequest request) {
 //        String errorMessage = "Errore di validazione. Verifica i dati inviati.";
 //
-//        List<String> fieldErrors = e.getConstraintViolations().stream()
-//                .map(fieldError -> fieldError.getInvalidValue() + ": " + fieldError.getInvalidValue())
-//                .collect(Collectors.toList());
+//        Map<String, String> fieldErrors = e.getConstraintViolations().stream()
+//                .collect(Collectors.toMap(
+//                        fieldError -> fieldError.getInvalidValue().toString(),
+//                        fieldError -> fieldError.getMessageTemplate()
+//                ));
+//
 //
 //        ErrorDetails errorDetails = new ErrorDetails(
 //                LocalDateTime.now(),
@@ -54,12 +57,12 @@ public class BackendResponse {
 //                fieldErrors
 //        );
 //
-//       return new ResponseWrapper<>("Validation error", (T) errorDetails);
+//        return ResponseEntity.badRequest().body(new ResponseWrapper<>("Validation error", errorDetails));
 //    }
 
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ResponseWrapper<ErrorDetails>> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest request) {
+    public ResponseWrapper<ErrorDetails> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest request) {
         String errorMessage = "Errore di validazione. Verifica i dati inviati.";
 
         Map<String, String> fieldErrors = ex.getBindingResult().getFieldErrors().stream()
@@ -77,7 +80,8 @@ public class BackendResponse {
                 fieldErrors
         );
 
-        return ResponseEntity.badRequest().body(new ResponseWrapper<>("Validation error", errorDetails));
+        //return ResponseEntity.badRequest().body(new ResponseWrapper<>("Validation error", errorDetails));
+        return new ResponseWrapper<>("Validation error", errorDetails);
     }
 
 

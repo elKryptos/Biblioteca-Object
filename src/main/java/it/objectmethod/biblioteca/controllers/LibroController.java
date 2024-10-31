@@ -1,13 +1,40 @@
 package it.objectmethod.biblioteca.controllers;
 
+import it.objectmethod.biblioteca.exceptions.NotFoundException;
+import it.objectmethod.biblioteca.models.dtos.LibroDto;
+import it.objectmethod.biblioteca.models.dtos.ResponseWrapper;
+import it.objectmethod.biblioteca.services.LibroService;
+import it.objectmethod.biblioteca.utils.Constants;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
-@RequestMapping("/")
+@RequestMapping("/libro")
 public class LibroController {
+
+    private final LibroService libroService;
+
+    @Validated
+    @PostMapping("/create")
+    public ResponseEntity<ResponseWrapper<LibroDto>> create(@Valid @RequestBody LibroDto libroDto) {
+        ResponseWrapper<LibroDto> response = libroService.create(libroDto);
+        if (response == null) {
+            throw new NotFoundException(Constants.LIBRO_NON_CREATO);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @Validated
+    @PutMapping("/update/{libroId}")
+    public ResponseEntity<ResponseWrapper<LibroDto>> update(@Valid @PathVariable Long libroId, @Valid @RequestBody LibroDto libroDto) {
+        ResponseWrapper<LibroDto> response = libroService.update(libroId, libroDto);
+        if (response == null) throw new NotFoundException(Constants.LIBRO_NON_TROVATO);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+     }
 }

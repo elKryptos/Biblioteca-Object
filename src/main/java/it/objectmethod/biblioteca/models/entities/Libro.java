@@ -19,9 +19,9 @@ public class Libro {
     private String titolo;
     private String autore;
     private String isbn;
-    private String genero;
-    private String editoriale;
-    private Date annoPublicazione;
+    private String genere;
+    private String editor;
+    private Date annoPubblicazione;
     private int copie;
 
     @OneToMany(mappedBy = "libro", fetch = FetchType.LAZY)
