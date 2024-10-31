@@ -51,5 +51,4 @@ public class PersonaController {
         if (response == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-
 }

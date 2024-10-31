@@ -32,5 +32,4 @@ public class PersonaleController {
                 status(HttpStatus.CREATED)
                 .body(personaleDto);
     }
-
 }

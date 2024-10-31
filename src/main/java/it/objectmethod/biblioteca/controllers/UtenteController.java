@@ -31,7 +31,6 @@ public class UtenteController {
                 .body(response);
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<ResponseWrapper<UtenteDto>> getUtenteById(@PathVariable Long id, HttpServletRequest request) {
         ResponseWrapper<UtenteDto> response = utenteService.getById(id);
