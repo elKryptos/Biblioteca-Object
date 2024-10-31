@@ -1,8 +1,8 @@
 package it.objectmethod.biblioteca.models.mappers;
 
+import it.objectmethod.biblioteca.enums.NomeRuolo;
 import it.objectmethod.biblioteca.models.dtos.RuoloDto;
 import it.objectmethod.biblioteca.models.entities.Ruolo;
-import it.objectmethod.biblioteca.enums.NomeRuolo;
 import org.mapstruct.Mapper;
 
 import java.util.List;
