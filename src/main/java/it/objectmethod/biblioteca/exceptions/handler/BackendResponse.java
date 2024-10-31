@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -37,33 +38,36 @@ public class BackendResponse {
         return new ResponseWrapper("Validation error", errorDetails);
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public <T> ResponseWrapper<T> handleConstraintViolationException(ConstraintViolationException e, HttpServletRequest request) {
-        String errorMessage = "Errore di validazione. Verifica i dati inviati.";
-
-        List<String> fieldErrors = e.getConstraintViolations().stream()
-                .map(fieldError -> fieldError.getInvalidValue() + ": " + fieldError.getInvalidValue())
-                .collect(Collectors.toList());
-
-        ErrorDetails errorDetails = new ErrorDetails(
-                LocalDateTime.now(),
-                errorMessage,
-                request.getRequestURI(),
-                HttpStatus.BAD_REQUEST,
-                fieldErrors
-        );
-
-       return new ResponseWrapper<>("Validation error", (T) errorDetails);
-    }
+//    @ExceptionHandler(ConstraintViolationException.class)
+//    public <T> ResponseWrapper<T> handleConstraintViolationException(ConstraintViolationException e, HttpServletRequest request) {
+//        String errorMessage = "Errore di validazione. Verifica i dati inviati.";
+//
+//        List<String> fieldErrors = e.getConstraintViolations().stream()
+//                .map(fieldError -> fieldError.getInvalidValue() + ": " + fieldError.getInvalidValue())
+//                .collect(Collectors.toList());
+//
+//        ErrorDetails errorDetails = new ErrorDetails(
+//                LocalDateTime.now(),
+//                errorMessage,
+//                request.getRequestURI(),
+//                HttpStatus.BAD_REQUEST,
+//                fieldErrors
+//        );
+//
+//       return new ResponseWrapper<>("Validation error", (T) errorDetails);
+//    }
 
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ResponseWrapper<ErrorDetails>> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest request) {
         String errorMessage = "Errore di validazione. Verifica i dati inviati.";
 
-        List<String> fieldErrors = ex.getBindingResult().getFieldErrors().stream()
-                .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
-                .collect(Collectors.toList());
+        Map<String, String> fieldErrors = ex.getBindingResult().getFieldErrors().stream()
+                .collect(Collectors.toMap(
+                        fieldError -> fieldError.getField(),
+                        fieldError -> fieldError.getDefaultMessage()
+                        ));
+
 
         ErrorDetails errorDetails = new ErrorDetails(
                 LocalDateTime.now(),
