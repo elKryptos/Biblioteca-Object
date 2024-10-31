@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
@@ -19,6 +21,12 @@ import org.springframework.web.bind.annotation.*;
 public class LibroController {
 
     private final LibroService libroService;
+
+    @GetMapping("/all")
+    public ResponseEntity<ResponseWrapper<List<LibroDto>>> getAll() {
+        ResponseWrapper<List<LibroDto>> response = libroService.getAll();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
     @Validated
     @PostMapping("/create")

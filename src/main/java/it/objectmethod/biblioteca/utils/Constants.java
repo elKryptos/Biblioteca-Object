@@ -13,7 +13,7 @@ public class Constants {
     /** Variabili per Lista Persona*/
     public static final String LISTA_PERSONALE_TROVATA = "Lista personale trovata!";
     public static final String LISTA_PERSONALE_NON_TROVATA = "Lista personale non trovata!";
-    
+
     /** Variabili per Libro */
     public static final String LIBRO_CREATO = "Libro creato correttamente!";
     public static final String LIBRO_NON_CREATO = "Errore durante la creazione del libro!";

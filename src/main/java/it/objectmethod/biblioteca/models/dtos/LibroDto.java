@@ -16,7 +16,7 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 public class LibroDto {
-    //@NotBlank(message = "Il nome non può essere vuoto")
+    @NotBlank(message = "Il nome non può essere vuoto")
     @BiblioRegexpValidation(regexp = "^[0-9A-Za-zÀ-ÖØ-öø-ÿ &_\\-]+$", message = "Formato numero non valido")
     private String titolo;
     @NotBlank(message = "L'autore non può essere vuoto")
