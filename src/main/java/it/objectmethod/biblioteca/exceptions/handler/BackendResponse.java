@@ -51,10 +51,9 @@ public class BackendResponse {
 //
 //        return ResponseEntity.badRequest().body(new ResponseWrapper<>("Validation error", errorDetails));
 //    }
-
-
+    
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseWrapper<ErrorDetails> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest request) {
+    public <T> ResponseWrapper<T> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest request) {
         String errorMessage = "Errore di validazione. Verifica i dati inviati.";
 
         Map<String, String> fieldErrors = ex.getBindingResult().getFieldErrors().stream()
@@ -63,7 +62,6 @@ public class BackendResponse {
                         fieldError -> fieldError.getDefaultMessage()
                         ));
 
-
         ErrorDetails errorDetails = new ErrorDetails(
                 LocalDateTime.now(),
                 errorMessage,
@@ -71,12 +69,8 @@ public class BackendResponse {
                 HttpStatus.BAD_REQUEST,
                 fieldErrors
         );
-
-        //return ResponseEntity.badRequest().body(new ResponseWrapper<>("Validation error", errorDetails));
-        return new ResponseWrapper<>("Validation error", errorDetails);
+        return new ResponseWrapper("Validation error", errorDetails);
     }
-
-
 
     @ExceptionHandler(NotFoundException.class)
     public <T> ResponseWrapper<T> handleNotFoundException(NotFoundException e, HttpServletRequest request) {

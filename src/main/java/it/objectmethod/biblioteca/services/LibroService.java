@@ -22,7 +22,7 @@ public class LibroService {
     public ResponseWrapper<List<LibroDto>> getAll() {
         List<Libro> libros = libroRepository.findAll();
         List<LibroDto> libroDtos = libroMapper.toDtoList(libros);
-        return new ResponseWrapper<>("Lista trovata", libroDtos);
+        return new ResponseWrapper<>(Constants.LIBRO_TROVATO, libroDtos);
     }
 
     public ResponseWrapper<LibroDto> create(LibroDto libroDto) {
