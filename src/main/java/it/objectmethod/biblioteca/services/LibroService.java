@@ -80,4 +80,9 @@ public class LibroService {
             throw new RuntimeException("Errore durante la creazione del file");
         }
     }
+
+    @Scheduled(cron = "0 * * * * *")
+    public void control() {
+
+    }
 }
