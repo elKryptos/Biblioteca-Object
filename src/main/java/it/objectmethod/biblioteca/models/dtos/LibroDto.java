@@ -17,11 +17,12 @@ import java.util.Date;
 @NoArgsConstructor
 public class LibroDto {
     @NotBlank(message = "Il nome non può essere vuoto")
-    @BiblioRegexpValidation(regexp = "^[0-9A-Za-zÀ-ÖØ-öø-ÿ &_\\-]+$", message = "Formato numero non valido")
+    //@BiblioRegexpValidation(regexp = "^[0-9A-Za-zÀ-ÖØ-öø-ÿ &_\\-]+$", message = "Formato numero non valido", annoPubblicazione = 0)
     private String titolo;
     @NotBlank(message = "L'autore non può essere vuoto")
     private String autore;
     @NotBlank(message = "L'isbn non può essere vuoto")
+    @BiblioRegexpValidation(regexp = "^[0-9A-Za-zÀ-ÖØ-öø-ÿ &_\\-]+$", message = "Formato numero non valido", annoPubblicazione = 2023)
     private String isbn;
     @NotBlank(message = "Il genere non può essere vuoto")
     private String genere;

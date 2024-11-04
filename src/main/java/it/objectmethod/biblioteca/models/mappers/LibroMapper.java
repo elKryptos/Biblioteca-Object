@@ -1,9 +1,7 @@
 package it.objectmethod.biblioteca.models.mappers;
 
 import it.objectmethod.biblioteca.models.dtos.LibroDto;
-import it.objectmethod.biblioteca.models.dtos.PersonaDto;
 import it.objectmethod.biblioteca.models.entities.Libro;
-import it.objectmethod.biblioteca.models.entities.Persona;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

@@ -28,14 +28,11 @@ public class LibroController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Validated
+//  @Validated
     @PostMapping("/create")
     public ResponseEntity<ResponseWrapper<LibroDto>> create(@Valid @RequestBody LibroDto libroDto) {
         ResponseWrapper<LibroDto> response = libroService.create(libroDto);
-        if (response == null) {
-            throw new NotFoundException(Constants.LIBRO_NON_CREATO);
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @Validated
@@ -44,5 +41,7 @@ public class LibroController {
         ResponseWrapper<LibroDto> response = libroService.update(libroId, libroDto);
         if (response == null) throw new NotFoundException(Constants.LIBRO_NON_TROVATO);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+
+
      }
 }

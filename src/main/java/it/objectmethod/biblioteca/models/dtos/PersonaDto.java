@@ -14,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class PersonaDto {
     //@NotBlank(message = "Il nome non può essere vuoto")
-    @BiblioRegexpValidation(regexp = "^[0-9A-Za-zÀ-ÖØ-öø-ÿ&_\\-]+$", message = "Formato numero non valido")
+    @BiblioRegexpValidation(regexp = "^[0-9A-Za-zÀ-ÖØ-öø-ÿ&_\\-]+$", message = "Formato numero non valido", annoPubblicazione = 0)
     private String nome;
     @NotBlank(message = "L'email non può essere vuota")
     @Email(message = "Formato email non valido")
