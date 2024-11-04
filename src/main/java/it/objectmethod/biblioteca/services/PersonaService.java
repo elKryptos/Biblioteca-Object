@@ -7,11 +7,21 @@ import it.objectmethod.biblioteca.models.entities.Persona;
 import it.objectmethod.biblioteca.models.mappers.PersonaMapper;
 import it.objectmethod.biblioteca.repositories.PersonaRepository;
 import it.objectmethod.biblioteca.utils.Constants;
+import it.objectmethod.biblioteca.utils.FileStorageUtil;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 @Data
@@ -19,6 +29,7 @@ import java.util.List;
 public class PersonaService {
     private final PersonaRepository personaRepository;
     private final PersonaMapper personaMapper;
+    private final FileStorageUtil fileStorageUtil;
 
     public ResponseWrapper<List<PersonaDto>> getAll() {
         List<Persona> personas = personaRepository.findAll();
@@ -49,5 +60,33 @@ public class PersonaService {
         personaMapper.updateEntity(persona, personaDto);
         personaRepository.save(persona);
         return new ResponseWrapper<>(Constants.PERSONA_UPDATE, personaMapper.toDto(persona));
+    }
+
+    public String generaXLS() {
+        FileStorageUtil.createStorageDirectory();
+        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String filePath = "FileStorage/persona_report_" + timestamp + ".xlsx";
+
+        List<Persona> persone = personaRepository.findAll();
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet();
+        XSSFRow header = sheet.createRow(0);
+        List<String> headerNames = Arrays.asList("id", "nome", "email", "telefono");
+        for (int i = 0; i < headerNames.size(); i++) {
+            header.createCell(i).setCellValue(headerNames.get(i));
+        }
+        for (int i = 1; i <= persone.size(); i++) {
+            XSSFRow newRow = sheet.createRow(i);
+            List<String> properties = persone.get(i - 1).allProperties();
+            for (int j = 0; j < properties.size(); j++) {
+                newRow.createCell(j).setCellValue(properties.get(j));
+            }
+        }
+        try {
+            wb.write(new FileOutputStream(filePath));
+            return "File creato";
+        } catch (IOException e) {
+            throw new RuntimeException("Errore durante la creazione del file");
+        }
     }
 }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -18,6 +19,11 @@ public class Persona {
     private String nome;
     private String email;
     private String telefono;
+
+    public List<String> allProperties() {
+        String idString = String.valueOf(personaId);
+        return Arrays.asList(idString, nome, email, telefono);
+    }
 
     @OneToMany(mappedBy = "persona")
     private List<Utente> utenti;
