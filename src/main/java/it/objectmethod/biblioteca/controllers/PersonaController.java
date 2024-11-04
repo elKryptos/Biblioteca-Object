@@ -52,12 +52,12 @@ public class PersonaController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping("/xls")
-    public ResponseEntity<String> generaXLS() {
-        String response = personaService.generaXLS();
-        if (response == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
+//    @GetMapping("/xls")
+//    public ResponseEntity<String> generaXLS() {
+//        String response = personaService.generaXLS();
+//        if (response == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return ResponseEntity.status(HttpStatus.OK).body(response);
+//    }
 }

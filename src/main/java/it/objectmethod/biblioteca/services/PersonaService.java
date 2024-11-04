@@ -14,6 +14,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -62,6 +63,7 @@ public class PersonaService {
         return new ResponseWrapper<>(Constants.PERSONA_UPDATE, personaMapper.toDto(persona));
     }
 
+    //@Scheduled(cron = "0 */1 * * * *")
     public String generaXLS() {
         FileStorageUtil.createStorageDirectory();
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
