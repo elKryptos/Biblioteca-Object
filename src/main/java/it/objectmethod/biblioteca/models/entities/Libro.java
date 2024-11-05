@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.Year;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -30,9 +31,9 @@ public class Libro {
         String idLibro = String.valueOf(libroId);
         String dateLibro = String.valueOf(annoPubblicazione);
         String copieLibro = String.valueOf(copie);
-        return Arrays.asList(idLibro, titolo, autore, isbn, genere, editor, dateLibro, copieLibro);
+        return Arrays.asList(idLibro, titolo, autore, isbn, genere, editor,
+                dateLibro, copieLibro);
     }
-
 
     @OneToMany(mappedBy = "libro", fetch = FetchType.LAZY)
     private List<MovimentoLibro> movimentoLibri;

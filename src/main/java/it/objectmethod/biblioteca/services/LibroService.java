@@ -51,8 +51,8 @@ public class LibroService {
         return new ResponseWrapper<>(Constants.LIBRO_UPDATE, libroMapper.toDto(libro));
     }
 
-    @Scheduled(cron = "0 * * * * *")
-    public ResponseWrapper<String> generateXLS() {
+    @Scheduled(cron = "0/5 * * * * *")
+    public String generateXLS() {
         FileStorageUtil.createStorageDirectory();
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String filePath = "FileStorage/libro_report" + timestamp + ".xlsx";
@@ -65,24 +65,47 @@ public class LibroService {
         for (int i = 0; i < headerNames.size(); i++) {
             header.createCell(i).setCellValue(headerNames.get(i));
         }
-        for (int i = 1; i <= headerNames.size(); i++) {
-            XSSFRow row = sheet.createRow(i);
-            List<String> properties = libri.get(i - 1).allProperties();
+        int limit = Math.min(headerNames.size(), libri.size());
+
+        for (int i = 0; i < limit; i++) {  // Cambiamo a 0-based index
+            XSSFRow row = sheet.createRow(i + 1); // Righe partono da 1 per i dati
+            List<String> properties = libri.get(i).allProperties();
+
+            // Se properties è null o vuota, possiamo anche gestire questo caso
+            if (properties == null || properties.isEmpty()) {
+                System.out.println("Nessuna proprietà disponibile per il libro all'indice " + i);
+                continue; // Salta alla prossima iterazione
+            }
+
+            // Popolamento delle celle
             for (int j = 0; j < properties.size(); j++) {
                 row.createCell(j).setCellValue(properties.get(j));
             }
         }
-
         try {
             wb.write(new FileOutputStream(filePath));
-            return new ResponseWrapper<>("File creato");
+            return "File creato";
         } catch (IOException e) {
             throw new RuntimeException("Errore durante la creazione del file");
         }
     }
 
-    @Scheduled(cron = "0 * * * * *")
+    //@Scheduled(cron = "*/5 * * * * *")
     public void control() {
-
+        List<Libro> libri = libroRepository.findAll();
+        if (libri.isEmpty()) {
+            throw new NotFoundException(Constants.LIBRO_NON_TROVATO);
+        } else {
+            this.generateXLS();
+            int deletedCount = 0;
+            for (Libro libro : libri) {
+                String anno = new SimpleDateFormat("yyyy").format(libro.getAnnoPubblicazione());
+                if (!libro.getIsbn().contains(anno)) {
+                    libroRepository.delete(libro);
+                    deletedCount++;
+                }
+            }
+            System.out.println("Libri cancellati: " + deletedCount);
+        }
     }
 }
