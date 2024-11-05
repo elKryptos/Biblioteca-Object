@@ -9,11 +9,9 @@ import it.objectmethod.biblioteca.repositories.LibroRepository;
 import it.objectmethod.biblioteca.utils.Constants;
 import it.objectmethod.biblioteca.utils.FileStorageUtil;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.FileOutputStream;
@@ -51,8 +49,8 @@ public class LibroService {
         return new ResponseWrapper<>(Constants.LIBRO_UPDATE, libroMapper.toDto(libro));
     }
 
-    @Scheduled(cron = "0/5 * * * * *")
-    public String generateXLS() {
+    //@Scheduled(cron = "0/5 * * * * *")
+    public void generateXLS() {
         FileStorageUtil.createStorageDirectory();
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String filePath = "FileStorage/libro_report" + timestamp + ".xlsx";
@@ -84,7 +82,6 @@ public class LibroService {
         }
         try {
             wb.write(new FileOutputStream(filePath));
-            return "File creato";
         } catch (IOException e) {
             throw new RuntimeException("Errore durante la creazione del file");
         }
