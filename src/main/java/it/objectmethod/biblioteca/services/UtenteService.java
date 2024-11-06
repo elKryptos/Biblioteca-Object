@@ -94,5 +94,4 @@ public class UtenteService {
         Page<PageableUtenteDto> utenteDtoPage = utentePage.map(utenteMapper::toPageableDto);
         return new ResponseWrapper<>("Libri trovati", utenteDtoPage);
     }
-
 }
