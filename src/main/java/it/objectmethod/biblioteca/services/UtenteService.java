@@ -85,9 +85,6 @@ public class UtenteService {
         Date fineIscrizione = calendar.getTime();
         utente.setFineIscrizione(fineIscrizione);
         utenteRepository.save(utente);
-        UtenteDto utenteResponseDto = utenteMapper.toDto(utente);
-        System.out.println("Inizio Iscrizione: " + utenteResponseDto.getInizioIscrizione());
-        System.out.println("Fine Iscrizione: " + utenteResponseDto.getFineIscrizione());
         return new ResponseWrapper<>("Utente creato", utenteMapper.toDto(utente));
     }
 

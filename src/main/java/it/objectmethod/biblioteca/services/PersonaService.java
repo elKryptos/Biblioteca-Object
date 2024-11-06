@@ -10,19 +10,17 @@ import it.objectmethod.biblioteca.utils.Constants;
 import it.objectmethod.biblioteca.utils.FileStorageUtil;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 @Service
 @Data
@@ -69,7 +67,7 @@ public class PersonaService {
         return new ResponseWrapper<>(Constants.PERSONA_UPDATE, personaMapper.toDto(persona));
     }
 
-    @Scheduled(cron = "0 * * * * *")
+    //@Scheduled(cron = "0 * * * * *")
     public String generaXLS() {
         FileStorageUtil.createStorageDirectory();
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());

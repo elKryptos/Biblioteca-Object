@@ -1,6 +1,5 @@
 package it.objectmethod.biblioteca.filters;
 
-import it.objectmethod.biblioteca.models.entities.Persona;
 import it.objectmethod.biblioteca.models.entities.Utente;
 import lombok.AllArgsConstructor;
 import lombok.Data;

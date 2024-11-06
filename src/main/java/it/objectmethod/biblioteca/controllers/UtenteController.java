@@ -5,7 +5,6 @@ import it.objectmethod.biblioteca.models.dtos.PageableUtenteDto;
 import it.objectmethod.biblioteca.models.dtos.PersonaDto;
 import it.objectmethod.biblioteca.models.dtos.ResponseWrapper;
 import it.objectmethod.biblioteca.models.dtos.UtenteDto;
-import it.objectmethod.biblioteca.models.entities.Persona;
 import it.objectmethod.biblioteca.models.entities.Utente;
 import it.objectmethod.biblioteca.services.UtenteService;
 import jakarta.servlet.http.HttpServletRequest;
