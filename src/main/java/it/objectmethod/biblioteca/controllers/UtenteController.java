@@ -48,7 +48,7 @@ public class UtenteController {
     @PostMapping("/create")
     public ResponseEntity<ResponseWrapper<UtenteDto>> createUtente(@RequestBody UtenteDto utenteDto) {
         ResponseWrapper<UtenteDto> response = utenteService.createUtente(utenteDto);
-        return new ResponseEntity(utenteDto, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PostMapping("/create/{utenteId}")
@@ -56,7 +56,7 @@ public class UtenteController {
             @PathVariable long utenteId,
             @RequestBody PersonaDto personaDto) {
             UtenteDto utenteDto = utenteService.createUtenteWithPerson(utenteId, personaDto);
-            return new ResponseEntity(utenteDto, HttpStatus.CREATED);
+            return new ResponseEntity<>(utenteDto, HttpStatus.CREATED);
     }
 
     @GetMapping()
@@ -64,6 +64,6 @@ public class UtenteController {
             @PageableDefault(sort = "utenteId", size = 5) Pageable pageable, UtenteParams utenteParams) {
         Specification<Utente> spec = utenteParams.getSpecification();
         ResponseWrapper<Page<PageableUtenteDto>> response = utenteService.paginate(pageable, utenteParams);
-        return new ResponseEntity(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

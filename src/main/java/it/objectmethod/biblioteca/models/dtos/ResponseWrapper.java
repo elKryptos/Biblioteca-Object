@@ -21,11 +21,6 @@ public class ResponseWrapper<TYPE> {
         this.type = type;
     }
 
-//    public ResponseWrapper(String msg, TYPE type) {
-//        this.msg = msg;
-//        this.type = type;
-//    }
-
     public ResponseWrapper(String msg, TYPE type) {
         this.msg = msg;
         if (type instanceof Page) {
