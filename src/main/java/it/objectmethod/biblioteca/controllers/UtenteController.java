@@ -1,11 +1,19 @@
 package it.objectmethod.biblioteca.controllers;
 
+import it.objectmethod.biblioteca.filters.UtenteParams;
+import it.objectmethod.biblioteca.models.dtos.PageableUtenteDto;
 import it.objectmethod.biblioteca.models.dtos.PersonaDto;
 import it.objectmethod.biblioteca.models.dtos.ResponseWrapper;
 import it.objectmethod.biblioteca.models.dtos.UtenteDto;
+import it.objectmethod.biblioteca.models.entities.Persona;
+import it.objectmethod.biblioteca.models.entities.Utente;
 import it.objectmethod.biblioteca.services.UtenteService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,19 +45,25 @@ public class UtenteController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<ResponseWrapper<UtenteDto>> createUtente(@RequestBody UtenteDto utenteDto) {
+        ResponseWrapper<UtenteDto> response = utenteService.createUtente(utenteDto);
+        return new ResponseEntity(utenteDto, HttpStatus.CREATED);
+    }
+
     @PostMapping("/create/{utenteId}")
     public ResponseEntity<UtenteDto> createUtenteWithPerson(
             @PathVariable long utenteId,
             @RequestBody PersonaDto personaDto) {
-
-//        try {
-            // Call the service method to create a new Utente
             UtenteDto utenteDto = utenteService.createUtenteWithPerson(utenteId, personaDto);
-            return new ResponseEntity(utenteDto, HttpStatus.CREATED); // Return 201 Created
-//        } catch (IllegalArgumentException e) {
-//            return new ResponseEntity<>(null, HttpStatus.CONFLICT); // Conflict if the user already exists
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); // Handle other exceptions
-//        }
+            return new ResponseEntity(utenteDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping()
+    public ResponseEntity<ResponseWrapper<Page<PageableUtenteDto>>> getAllUtenti(
+            @PageableDefault(sort = "utenteId", size = 5) Pageable pageable, UtenteParams utenteParams) {
+        Specification<Utente> spec = utenteParams.getSpecification();
+        ResponseWrapper<Page<PageableUtenteDto>> response = utenteService.paginate(pageable, utenteParams);
+        return new ResponseEntity(response, HttpStatus.OK);
     }
 }

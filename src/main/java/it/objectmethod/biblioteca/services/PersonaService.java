@@ -44,13 +44,19 @@ public class PersonaService {
     public ResponseWrapper<PersonaDto> getById(long id) {
         Persona persona = personaRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(Constants.PERSONA_NON_TROVATA));
-        return new ResponseWrapper<>(Constants.PERSONA_TROVATA, personaMapper.toDto(persona));
+        return new ResponseWrapper(Constants.PERSONA_TROVATA, personaMapper.toDto(persona));
     }
 
     public ResponseWrapper<PersonaDto> create(PersonaDto personaDto) {
         Persona persona = personaMapper.toEntity(personaDto);
         personaRepository.save(persona);
-        return new ResponseWrapper<>(Constants.PERSONA_CREATA, personaMapper.toDto(persona));
+        return new ResponseWrapper(Constants.PERSONA_CREATA, personaMapper.toDto(persona));
+    }
+
+    public ResponseWrapper<List<PersonaDto>> createFast(List<PersonaDto> personaDto) {
+        List<Persona> personaList = personaMapper.toEntityList(personaDto);
+        personaRepository.saveAll(personaList);
+        return new ResponseWrapper("Persone create", personaMapper.toDtoList(personaList));
     }
 
     public ResponseWrapper<PersonaDto> update(Long id, PersonaDto personaDto) {
@@ -63,7 +69,7 @@ public class PersonaService {
         return new ResponseWrapper<>(Constants.PERSONA_UPDATE, personaMapper.toDto(persona));
     }
 
-    //@Scheduled(cron = "0 */1 * * * *")
+    @Scheduled(cron = "0 * * * * *")
     public String generaXLS() {
         FileStorageUtil.createStorageDirectory();
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());

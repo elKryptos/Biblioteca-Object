@@ -59,7 +59,7 @@ public class LibroService {
         XSSFSheet sheet = wb.createSheet();
         XSSFRow header = sheet.createRow(0);
         List<String> headerNames = Arrays.asList("id", "titolo", "autore",
-                "isbn", "genere", "editor", "annoPubblicazione", "copie");
+                "isbn", "genere", "editor", "annoPubblicazione", "copie");;
         for (int i = 0; i < headerNames.size(); i++) {
             header.createCell(i).setCellValue(headerNames.get(i));
         }

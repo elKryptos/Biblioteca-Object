@@ -42,6 +42,12 @@ public class PersonaController {
         if (response == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+    @PostMapping("/createFast")
+    @Validated
+    public ResponseEntity<ResponseWrapper<List<PersonaDto>>> createFast(@RequestBody List<PersonaDto> personaDto) {
+        ResponseWrapper<List<PersonaDto>> response = personaService.createFast(personaDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<ResponseWrapper<PersonaDto>> update(

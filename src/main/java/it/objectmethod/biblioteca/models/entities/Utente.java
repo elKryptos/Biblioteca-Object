@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -16,8 +17,8 @@ public class Utente {
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long utenteId;
-    private LocalDate inizioIscrizione;
-    private LocalDate fineIscrizione;
+    private Date inizioIscrizione;
+    private Date fineIscrizione;
 
     @OneToMany(mappedBy = "utente", fetch = FetchType.LAZY)
     private List<Prenotazione> prenotazioni;
