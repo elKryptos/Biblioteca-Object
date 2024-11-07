@@ -65,7 +65,7 @@ public class LibroService {
         }
         int limit = Math.min(headerNames.size(), libri.size());
 
-        for (int i = 0; i < limit; i++) {  // Cambiamo a 0-based index
+        for (int i = 0; i < limit; i++) {  // Cambio a 0-based index
             XSSFRow row = sheet.createRow(i + 1); // Righe partono da 1 per i dati
             List<String> properties = libri.get(i).allProperties();
 

@@ -71,8 +71,7 @@ public class UtenteService {
         Date fineIscrizione = calendar.getTime();
         utente.setFineIscrizione(fineIscrizione);
         utenteRepository.save(utente);
-        UtenteDto utenteDto = utenteMapper.toDto(utente);
-        return utenteDto;
+        return utenteMapper.toDto(utente);
     }
 
     public ResponseWrapper<UtenteDto> createUtente(UtenteDto utenteDto) {
