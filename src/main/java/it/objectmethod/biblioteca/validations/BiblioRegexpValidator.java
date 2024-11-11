@@ -8,14 +8,14 @@ public class BiblioRegexpValidator implements ConstraintValidator<BiblioRegexpVa
     private String regexp;
     private String message;
     private boolean allowNull;
-    private int annoPubblicazione;
+    //private int annoPubblicazione;
 
     @Override
     public void initialize(BiblioRegexpValidation constraintAnnotation) {
         this.regexp = constraintAnnotation.regexp();
         this.message = constraintAnnotation.message();
         this.allowNull = constraintAnnotation.allowNull();
-        this.annoPubblicazione = constraintAnnotation.annoPubblicazione();
+        //this.annoPubblicazione = constraintAnnotation.annoPubblicazione();
     }
 
     @Override
@@ -35,12 +35,12 @@ public class BiblioRegexpValidator implements ConstraintValidator<BiblioRegexpVa
             return false;
         }
 
-        String annoStr = String.valueOf(this.annoPubblicazione);
-        if (!value.contains(annoStr)) {
-            context.buildConstraintViolationWithTemplate(this.message)
-                    .addConstraintViolation();
-            return false;
-        }
+//        String annoStr = String.valueOf(this.annoPubblicazione);
+//        if (!value.contains(annoStr)) {
+//            context.buildConstraintViolationWithTemplate(this.message)
+//                    .addConstraintViolation();
+//            return false;
+//        }
         return true;
     }
 }

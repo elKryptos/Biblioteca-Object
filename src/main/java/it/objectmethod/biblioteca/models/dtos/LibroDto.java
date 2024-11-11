@@ -22,7 +22,7 @@ public class LibroDto {
     @NotBlank(message = "L'autore non può essere vuoto")
     private String autore;
     @NotBlank(message = "L'isbn non può essere vuoto")
-    @BiblioRegexpValidation(regexp = "^[0-9A-Za-zÀ-ÖØ-öø-ÿ &_\\-]+$", message = "Formato numero non valido", annoPubblicazione = 2023)
+    @BiblioRegexpValidation(regexp = "^[0-9A-Za-zÀ-ÖØ-öø-ÿ &_\\-]+$", message = "Formato numero non valido")
     private String isbn;
     @NotBlank(message = "Il genere non può essere vuoto")
     private String genere;

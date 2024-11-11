@@ -15,7 +15,7 @@ public @interface BiblioRegexpValidation {
     boolean allowNull() default false;
     String regexp();
     String message();
-    int annoPubblicazione();
+    //int annoPubblicazione();
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

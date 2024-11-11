@@ -4,8 +4,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import it.objectmethod.biblioteca.enums.RuoloPersona;
+import it.objectmethod.biblioteca.models.entities.Ruolo;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
+import org.springframework.stereotype.Component;
 
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -21,9 +24,10 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Properties;
 
+@Component
 public class JwtToken {
 
-    public static PrivateKey getPrivateKey() {
+    public PrivateKey getPrivateKey() {
         Properties props = new Properties();
         try {
             props.load(new FileInputStream("key.properties"));
@@ -40,7 +44,7 @@ public class JwtToken {
         }
     }
 
-    public static PublicKey getPublicKey() {
+    public PublicKey getPublicKey() {
         Properties props = new Properties();
         try {
             props.load(new FileInputStream("key.properties"));
@@ -57,12 +61,13 @@ public class JwtToken {
         }
     }
 
-    public static String tokenGenerator(String name, String email, String telefono) {
+    public String tokenGenerator(String name, String email, String telefono, RuoloPersona ruoloPersona) {
         try {
             return Jwts.builder()
                     .claim("name", name)
                     .claim("email", email)
                     .claim("telefono", telefono)
+                    .claim("ruolo", ruoloPersona.name())
                     .setIssuedAt(new Date())
                     .setExpiration(Date.from(Instant.now().plus(15, ChronoUnit.MINUTES)))
                     .signWith(getPrivateKey(), SignatureAlgorithm.RS256)
@@ -73,7 +78,7 @@ public class JwtToken {
         }
     }
 
-    public static Jws<Claims> verifyToken(String token) {
+    public Jws<Claims> verifyToken(String token) {
         if (token == null || token.isEmpty()) {
             return null;
         }

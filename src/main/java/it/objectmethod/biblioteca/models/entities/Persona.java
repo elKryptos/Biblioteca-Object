@@ -1,5 +1,6 @@
 package it.objectmethod.biblioteca.models.entities;
 
+import it.objectmethod.biblioteca.enums.RuoloPersona;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,8 +18,14 @@ public class Persona {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long personaId;
     private String nome;
+    @Column(unique = true)
     private String email;
     private String telefono;
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RuoloPersona ruoloPersona;
 
     public List<String> allProperties() {
         String idString = String.valueOf(personaId);

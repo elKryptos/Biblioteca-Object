@@ -1,5 +1,6 @@
 package it.objectmethod.biblioteca.services;
 
+import it.objectmethod.biblioteca.enums.RuoloPersona;
 import it.objectmethod.biblioteca.exceptions.NotFoundException;
 import it.objectmethod.biblioteca.models.dtos.PersonaDto;
 import it.objectmethod.biblioteca.models.dtos.ResponseWrapper;
@@ -14,6 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
@@ -35,6 +37,7 @@ public class PersonaService {
     private final PersonaRepository personaRepository;
     private final PersonaMapper personaMapper;
     private final FileStorageUtil fileStorageUtil;
+    private final BCryptPasswordEncoder bCryptEncoder;
     private final Lock lock = new ReentrantLock();
 
     public ResponseWrapper<List<PersonaDto>> getAll() {
@@ -54,8 +57,10 @@ public class PersonaService {
 
     public ResponseWrapper<PersonaDto> create(PersonaDto personaDto) {
         Persona persona = personaMapper.toEntity(personaDto);
+        persona.setPassword(bCryptEncoder.encode(personaDto.getPassword()));
+        persona.setRuoloPersona(RuoloPersona.BRONCE);
         personaRepository.save(persona);
-        return new ResponseWrapper<>(Constants.PERSONA_CREATA, personaMapper.toDto(persona));
+        return new ResponseWrapper<>(Constants.PERSONA_CREATA);
     }
 
     public ResponseWrapper<List<PersonaDto>> createFast(List<PersonaDto> personaDto) {
@@ -100,7 +105,7 @@ public class PersonaService {
         }
     }
 
-    @Scheduled ( cron = "0/10 * * * * *")
+    //@Scheduled ( cron = "0/10 * * * * *")
     public String formatControlXLS() {
         lock.lock();
         FileStorageUtil.createStorageDirectory();
@@ -141,7 +146,7 @@ public class PersonaService {
         }
     }
 
-    @Scheduled(cron = "0/20 * * * * *")
+    //@Scheduled(cron = "0/20 * * * * *")
     public void corregiNomi() {
         lock.lock();
         String filepath = FileStorageUtil.getFilePath();
