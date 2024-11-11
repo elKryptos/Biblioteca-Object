@@ -5,7 +5,6 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import it.objectmethod.biblioteca.enums.RuoloPersona;
-import it.objectmethod.biblioteca.models.entities.Ruolo;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.springframework.stereotype.Component;
