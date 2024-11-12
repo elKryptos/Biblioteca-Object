@@ -19,6 +19,7 @@ public class JwtToken {
 
     @Value("${jwt.secret.key}")
     private String secretKey;
+    
     public String tokenGenerator(String name, String email, String telefono, RuoloPersona ruoloPersona) {
         try {
             SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8),
