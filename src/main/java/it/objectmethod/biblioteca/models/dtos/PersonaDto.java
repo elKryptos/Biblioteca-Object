@@ -1,5 +1,7 @@
 package it.objectmethod.biblioteca.models.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import it.objectmethod.biblioteca.enums.RuoloPersona;
 import it.objectmethod.biblioteca.validations.BiblioRegexpValidation;
 import jakarta.validation.constraints.Email;
@@ -23,6 +25,7 @@ public class PersonaDto {
     @NotBlank(message = "Il numero di telfono non può essere vuoto")
     private String telefono;
     @NotBlank
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private RuoloPersona ruoloPersona;
 }
