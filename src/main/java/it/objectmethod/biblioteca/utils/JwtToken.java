@@ -16,19 +16,21 @@ import java.util.Date;
 
 @Component
 public class JwtToken {
+
     @Value("${jwt.secret.key}")
     private String secretKey;
 
     public String tokenGenerator(String name, String email, String telefono, RuoloPersona ruoloPersona) {
         try {
-            SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
+            SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8),
+                    SignatureAlgorithm.HS256.getJcaName());
             return Jwts.builder()
                     .claim("name", name)
                     .claim("email", email)
                     .claim("telefono", telefono)
                     .claim("ruolo", ruoloPersona.name())
                     .setIssuedAt(new Date())
-                    .setExpiration(Date.from(Instant.now().plus(15, ChronoUnit.MINUTES)))
+                    .setExpiration(Date.from(Instant.now().plus(5, ChronoUnit.MINUTES)))
                     .signWith(secretKeySpec)
                     .compact();
         } catch (Exception e) {
@@ -42,8 +44,10 @@ public class JwtToken {
             return null;
         }
         try {
+            SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8),
+                    SignatureAlgorithm.HS256.getJcaName());
             return Jwts.parser()
-                    .setSigningKey(secretKey)
+                    .setSigningKey(secretKeySpec)
                     .build()
                     .parseClaimsJws(token);
         } catch (Exception e) {
