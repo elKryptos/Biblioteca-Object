@@ -1,6 +1,5 @@
 package it.objectmethod.biblioteca.models.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import it.objectmethod.biblioteca.enums.RuoloPersona;
 import it.objectmethod.biblioteca.validations.BiblioRegexpValidation;
