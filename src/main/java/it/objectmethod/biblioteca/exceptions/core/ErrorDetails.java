@@ -1,5 +1,7 @@
 package it.objectmethod.biblioteca.exceptions.core;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +14,8 @@ import java.util.Map;
 @Jacksonized
 @Data
 @NoArgsConstructor
-@Builder(toBuilder = true)
+@AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorDetails {
     private LocalDateTime timestamp;
     private String message;
@@ -25,14 +28,6 @@ public class ErrorDetails {
         this.message = message;
         this.details = details;
         this.status = status;
-    }
-
-    public ErrorDetails(LocalDateTime timestamp, String message, String details, HttpStatus status, Map<String,String> validationErrors) {
-        this.timestamp = timestamp;
-        this.message = message;
-        this.details = details;
-        this.status = status;
-        this.validationErrors = validationErrors;
     }
 
 }

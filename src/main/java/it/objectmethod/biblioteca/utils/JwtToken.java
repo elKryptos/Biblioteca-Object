@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import it.objectmethod.biblioteca.enums.RuoloPersona;
+import it.objectmethod.biblioteca.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -52,7 +53,7 @@ public class JwtToken {
                     .parseClaimsJws(token);
         } catch (Exception e) {
             System.err.println("Token verification failed: " + e.getMessage());
-            throw new RuntimeException(e);
+            throw new NotFoundException(e.getMessage());
         }
     }
 }

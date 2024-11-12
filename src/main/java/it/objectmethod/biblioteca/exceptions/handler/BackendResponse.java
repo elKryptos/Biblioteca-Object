@@ -29,28 +29,6 @@ public class BackendResponse {
         );
         return new ResponseWrapper("Validation error", errorDetails);
     }
-
-//    @ExceptionHandler(ConstraintViolationException.class)
-//    public ResponseEntity<ResponseWrapper<ErrorDetails>> handleConstraintViolationException(ConstraintViolationException e, HttpServletRequest request) {
-//        String errorMessage = "Errore di validazione. Verifica i dati inviati.";
-//
-//        Map<String, String> fieldErrors = e.getConstraintViolations().stream()
-//                .collect(Collectors.toMap(
-//                        fieldError -> fieldError.getInvalidValue().toString(),
-//                        fieldError -> fieldError.getMessageTemplate()
-//                ));
-//
-//
-//        ErrorDetails errorDetails = new ErrorDetails(
-//                LocalDateTime.now(),
-//                errorMessage,
-//                request.getRequestURI(),
-//                HttpStatus.BAD_REQUEST,
-//                fieldErrors
-//        );
-//
-//        return ResponseEntity.badRequest().body(new ResponseWrapper<>("Validation error", errorDetails));
-//    }
     
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public <T> ResponseWrapper<T> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest request) {
