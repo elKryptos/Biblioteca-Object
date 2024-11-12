@@ -19,7 +19,6 @@ public class JwtToken {
 
     @Value("${jwt.secret.key}")
     private String secretKey;
-
     public String tokenGenerator(String name, String email, String telefono, RuoloPersona ruoloPersona) {
         try {
             SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8),
@@ -30,7 +29,7 @@ public class JwtToken {
                     .claim("telefono", telefono)
                     .claim("ruolo", ruoloPersona.name())
                     .setIssuedAt(new Date())
-                    .setExpiration(Date.from(Instant.now().plus(5, ChronoUnit.MINUTES)))
+                    .setExpiration(Date.from(Instant.now().plus(2, ChronoUnit.MINUTES)))
                     .signWith(secretKeySpec)
                     .compact();
         } catch (Exception e) {
