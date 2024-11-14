@@ -34,7 +34,7 @@ public class TokenFilter implements Filter {
         String header = request.getHeader("Authorization");
         if (header != null && header.startsWith("Bearer")) {
             String token = header.substring(7);
-            Jws<Claims> claimsJws = jwtToken.verifyToken(token);
+            Jws<Claims> claimsJws = jwtToken.allClaimsJws(token);
             if (claimsJws == null) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token non valido");
                 return;

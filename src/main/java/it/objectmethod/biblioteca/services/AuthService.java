@@ -30,14 +30,15 @@ public class AuthService {
             throw new NotFoundException("Email or password is empty");
         }
         if (!bCryptPasswordEncoder.matches(personaDto.getPassword(), persona.getPassword())){
-            throw new NotFoundException("Password doesn't match");
+            throw new NotFoundException("Try again");
         }
-        String token = jwtToken.tokenGenerator(
-                persona.getNome(),
-                persona.getEmail(),
-                persona.getTelefono(),
-                persona.getRuoloPersona()
-        );
+//        String token = jwtToken.tokenGenerator(
+//                persona.getNome(),
+//                persona.getEmail(),
+//                persona.getTelefono(),
+//                persona.getRuoloPersona()
+//        );
+        String token = jwtToken.createToken(persona);
         return new ResponseWrapper<>("Loggato correttamente", token);
     }
 }

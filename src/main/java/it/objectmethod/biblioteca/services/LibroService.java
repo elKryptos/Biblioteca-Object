@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,9 +31,13 @@ public class LibroService {
     private final FileStorageUtil fileStorageUtil;
 
     public ResponseWrapper<List<LibroDto>> getAll() {
-        List<Libro> libros = libroRepository.findAll();
-        List<LibroDto> libroDtos = libroMapper.toDtoList(libros);
-        return new ResponseWrapper<>(Constants.LIBRO_TROVATO, libroDtos);
+//        List<Libro> libros = libroRepository.findAll();
+//        List<LibroDto> libroDtos = libroMapper.toDtoList(libros);
+//        return new ResponseWrapper<>(Constants.LIBRO_TROVATO, libroDtos);
+        List<LibroDto> libroList = libroRepository.findAll().stream()
+                .map(libroMapper::toDto)
+                .collect(Collectors.toList());
+        return new ResponseWrapper(Constants.LIBRO_TROVATO, libroList);
     }
 
     public ResponseWrapper<LibroDto> create(LibroDto libroDto) {
