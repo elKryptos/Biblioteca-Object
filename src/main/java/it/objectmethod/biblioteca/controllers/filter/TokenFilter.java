@@ -2,6 +2,7 @@ package it.objectmethod.biblioteca.controllers.filter;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
+import it.objectmethod.biblioteca.exceptions.NotFoundException;
 import it.objectmethod.biblioteca.utils.JwtToken;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,12 +35,17 @@ public class TokenFilter implements Filter {
         String header = request.getHeader("Authorization");
         if (header != null && header.startsWith("Bearer")) {
             String token = header.substring(7);
-            Jws<Claims> claimsJws = jwtToken.allClaimsJws(token);
-            if (claimsJws == null) {
+            try {
+                Jws<Claims> claimsJws = jwtToken.allClaimsJws(token);
+                if (claimsJws == null) {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token non valido");
+                    return;
+                }
+                request.setAttribute("claims", claimsJws);
+            } catch (NotFoundException e) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token non valido");
                 return;
             }
-            request.setAttribute("claims", claimsJws);
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token mancante");
             return;

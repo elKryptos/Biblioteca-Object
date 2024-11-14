@@ -28,7 +28,6 @@ public class LibroService {
 
     private final LibroRepository libroRepository;
     private final LibroMapper libroMapper;
-    private final FileStorageUtil fileStorageUtil;
 
     public ResponseWrapper<List<LibroDto>> getAll() {
 //        List<Libro> libros = libroRepository.findAll();

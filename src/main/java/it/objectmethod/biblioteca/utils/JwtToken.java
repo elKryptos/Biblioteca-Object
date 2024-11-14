@@ -83,9 +83,9 @@ public class JwtToken {
                     .setSigningKey(secretKeySpec)
                     .build()
                     .parseClaimsJws(token);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             System.err.println("Token verification failed: " + e.getMessage());
-            throw new NotFoundException("Token non valido o scaduto");
+            return  null;
         }
     }
 }
