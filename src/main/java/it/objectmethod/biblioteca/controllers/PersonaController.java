@@ -42,6 +42,7 @@ public class PersonaController {
         if (response == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
     @PostMapping("/createFast")
     @Validated
     public ResponseEntity<ResponseWrapper<List<PersonaDto>>> createFast(@RequestBody List<PersonaDto> personaDto) {
@@ -58,12 +59,4 @@ public class PersonaController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-//    @GetMapping("/xls")
-//    public ResponseEntity<String> generaXLS() {
-//        String response = personaService.generaXLS();
-//        if (response == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return ResponseEntity.status(HttpStatus.OK).body(response);
-//    }
 }

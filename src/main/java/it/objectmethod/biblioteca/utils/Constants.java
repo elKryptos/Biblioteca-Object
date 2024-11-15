@@ -19,6 +19,6 @@ public class Constants {
     public static final String LIBRO_NON_CREATO = "Errore durante la creazione del libro!";
     public static final String LIBRO_TROVATO = "Libro trovato!";
     public static final String LIBRO_NON_TROVATO = "Libro non trovato!";
-    public static final String LIBRO_UPDATE = "Libro aggiornato correttamente";
+    public static final String LIBRO_UPDATED = "Libro aggiornato correttamente";
 
 }

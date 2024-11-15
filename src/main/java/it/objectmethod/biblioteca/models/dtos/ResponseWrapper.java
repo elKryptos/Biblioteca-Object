@@ -28,7 +28,7 @@ public class ResponseWrapper<TYPE> {
     public ResponseWrapper(String msg, TYPE type) {
         this.msg = msg;
         if (type instanceof Page) {
-            Page<?> page = (Page<?>) type;
+            Page<TYPE> page = (Page<TYPE>) type;
             this.type = (TYPE) page.getContent(); // Convert Page content to List
             this.pagination = new PaginationMetadata(
                     page.getNumber(),

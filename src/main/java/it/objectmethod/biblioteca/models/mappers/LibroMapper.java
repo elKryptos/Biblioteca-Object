@@ -17,6 +17,6 @@ public interface LibroMapper {
 
     /* mapping che server per aggiornare una entity da un dto */
     @Mapping(target = "libroId", ignore = true)
-    void updateEntity(@MappingTarget Libro libro, LibroDto libroDto);
+    Libro updateEntity(@MappingTarget Libro libro, LibroDto libroDto);
 }
 

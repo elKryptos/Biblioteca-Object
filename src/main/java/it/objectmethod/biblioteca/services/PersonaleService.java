@@ -37,7 +37,6 @@ public class PersonaleService {
         return new ResponseWrapper<>(Constants.LISTA_PERSONALE_TROVATA, personaleDtoList);
     }
 
-
     public PersonaleDto create (PersonaleRequest personaleRequest) {
         Persona persona = new Persona();
         persona.setNome(personaleRequest.getNome());

@@ -56,7 +56,7 @@ public class BackendResponse {
                 LocalDateTime.now(),
                 e.getMessage(),
                 request.getRequestURI(),
-                HttpStatus.UNAUTHORIZED
+                HttpStatus.NOT_FOUND
         );
         return new ResponseWrapper("Not found", errorDetails);
     }

@@ -42,7 +42,5 @@ public class LibroController {
         ResponseWrapper<LibroDto> response = libroService.update(libroId, libroDto);
         if (response == null) throw new NotFoundException(Constants.LIBRO_NON_TROVATO);
         return ResponseEntity.status(HttpStatus.OK).body(response);
-
-
      }
 }

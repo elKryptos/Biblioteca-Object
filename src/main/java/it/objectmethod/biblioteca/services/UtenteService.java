@@ -79,7 +79,7 @@ public class UtenteService {
         Date inizioIscrizione = new Date();
         utente.setInizioIscrizione(inizioIscrizione);
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(inizioIscrizione);
+        calendar.setTime(Calendar.getInstance().getTime());
         calendar.add(Calendar.MONTH, 1);
         Date fineIscrizione = calendar.getTime();
         utente.setFineIscrizione(fineIscrizione);

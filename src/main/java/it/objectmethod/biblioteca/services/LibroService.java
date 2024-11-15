@@ -33,15 +33,13 @@ public class LibroService {
 //        List<Libro> libros = libroRepository.findAll();
 //        List<LibroDto> libroDtos = libroMapper.toDtoList(libros);
 //        return new ResponseWrapper<>(Constants.LIBRO_TROVATO, libroDtos);
-        List<LibroDto> libroList = libroRepository.findAll().stream()
-                .map(libroMapper::toDto)
-                .collect(Collectors.toList());
+        List<LibroDto> libroList = libroMapper.toDtoList(libroRepository.findAll());
         return new ResponseWrapper(Constants.LIBRO_TROVATO, libroList);
     }
 
     public ResponseWrapper<LibroDto> create(LibroDto libroDto) {
-        libroMapper.toEntity(libroDto);
-        libroRepository.save(libroMapper.toEntity(libroDto));
+        Libro entity = libroMapper.toEntity(libroDto);
+        libroRepository.save(entity);
         return new ResponseWrapper<>(Constants.LIBRO_CREATO, libroDto);
     }
 
@@ -50,7 +48,7 @@ public class LibroService {
                 () -> new NotFoundException(Constants.LIBRO_NON_TROVATO));
         libroMapper.updateEntity(libro, libroDto);
         libroRepository.save(libro);
-        return new ResponseWrapper<>(Constants.LIBRO_UPDATE, libroMapper.toDto(libro));
+        return new ResponseWrapper<>(Constants.LIBRO_UPDATED, libroMapper.toDto(libro));
     }
 
     //@Scheduled(cron = "0/5 * * * * *")

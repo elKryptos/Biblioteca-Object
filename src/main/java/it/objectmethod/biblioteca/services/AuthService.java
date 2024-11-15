@@ -32,13 +32,7 @@ public class AuthService {
         if (!bCryptPasswordEncoder.matches(personaDto.getPassword(), persona.getPassword())){
             throw new NotFoundException("Try again");
         }
-//        String token = jwtToken.tokenGenerator(
-//                persona.getNome(),
-//                persona.getEmail(),
-//                persona.getTelefono(),
-//                persona.getRuoloPersona()
-//        );
-        String token = jwtToken.createToken(persona);
+        String token = jwtToken.createTokenWith(persona);
         return new ResponseWrapper<>("Loggato correttamente", token);
     }
 }

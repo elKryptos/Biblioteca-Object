@@ -27,7 +27,7 @@ public class JwtToken {
     @Autowired
     private final PersonaRepository personaRepository;
 
-    public String createToken(Persona persona) {
+    public String createTokenWith(Persona persona) {
         personaRepository.findByEmail(persona.getEmail());
         Map<String, String> claims = new HashMap<>();
         claims.put(persona.getNome(), persona.getNome());
@@ -52,25 +52,6 @@ public class JwtToken {
             throw new RuntimeException("Errore nella creazione del Token\n" + e);
         }
     }
-
-//    public String tokenGenerator(String name, String email, String telefono, RuoloPersona ruoloPersona) {
-//        try {
-//            SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8),
-//                    SignatureAlgorithm.HS256.getJcaName());
-//            return Jwts.builder()
-//                    .claim("name", name)
-//                    .claim("email", email)
-//                    .claim("telefono", telefono)
-//                    .claim("ruolo", ruoloPersona.name())
-//                    .setIssuedAt(new Date())
-//                    .setExpiration(Date.from(Instant.now().plus(2, ChronoUnit.MINUTES)))
-//                    .signWith(secretKeySpec)
-//                    .compact();
-//        } catch (Exception e) {
-//            System.err.println("Errore nella creazione del Token" + e.getMessage());
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     public Jws<Claims> allClaimsJws(String token) {
         if (token == null || token.isEmpty()) {
