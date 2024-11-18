@@ -14,7 +14,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
+import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -36,6 +38,7 @@ public class PersonaServiceTest {
 
     private static final String LISTA_TROVATA = "Lista trovata!";
     private static final String PERSONA_CREATA = "Persona creata!";
+    private static final String PERSONA_UPDATE = "Persona updated!";
 
     static final PersonaDto personaDto = PersonaDto.builder()
             .nome("Joe Biden")
@@ -54,7 +57,7 @@ public class PersonaServiceTest {
             .build();
 
     @Test
-    void getAll() {
+    void shouldgetAll_whenIsValid() {
 
         final ResponseWrapper<List<PersonaDto>> expected = new ResponseWrapper<>(LISTA_TROVATA);
         final List<PersonaDto> dtoList = List.of(personaDto);
@@ -83,6 +86,27 @@ public class PersonaServiceTest {
         when(personaRepository.save(entityToSave)).thenReturn(entityToSave);
 
         final ResponseWrapper<PersonaDto> actual = personaService.create(inputDto);
+
+        assertThat(actual)
+                .usingRecursiveComparison()
+                .isEqualTo(expected);
+    }
+
+    @Test
+    void shouldUpdatePersona_whenIsvalid() {
+
+        final Long personaId = 1L;
+        final PersonaDto inputDto = personaDto;
+        final Persona entityToSave = entity;
+        final ResponseWrapper<PersonaDto> expected = new ResponseWrapper<>(PERSONA_UPDATE);
+        expected.setType(inputDto);
+
+        when(personaRepository.findById(personaId)).thenReturn(Optional.of(entityToSave));
+        when(personaMapper.updateEntity(entityToSave, inputDto)).thenReturn(entityToSave);
+        when(personaRepository.save(entityToSave)).thenReturn(entityToSave);
+        when(personaMapper.toDto(entityToSave)).thenReturn(inputDto);
+
+        final ResponseWrapper<PersonaDto> actual = personaService.update(personaId, inputDto);
 
         assertThat(actual)
                 .usingRecursiveComparison()

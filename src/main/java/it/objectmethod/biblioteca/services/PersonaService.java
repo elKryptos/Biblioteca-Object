@@ -73,7 +73,8 @@ public class PersonaService {
     }
 
     public ResponseWrapper<PersonaDto> update(Long id, PersonaDto personaDto) {
-        Persona persona = personaRepository.getById(id);
+        Persona persona = personaRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(Constants.PERSONA_NON_TROVATA));
         personaMapper.updateEntity(persona, personaDto);
         personaRepository.save(persona);
         return new ResponseWrapper<>(Constants.PERSONA_UPDATE, personaMapper.toDto(persona));
