@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-@Order(1)
+@Order(1)// il primo filtro si occupa dei CORS
 public class CORSFilter implements Filter {
 
     @Override

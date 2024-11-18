@@ -18,22 +18,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class JwtToken {
 
     @Value("${jwt.secret.key}")
     private String secretKey;
 
-    @Autowired
     private final PersonaRepository personaRepository;
 
     public String createTokenWith(Persona persona) {
         personaRepository.findByEmail(persona.getEmail());
         Map<String, String> claims = new HashMap<>();
-        claims.put(persona.getNome(), persona.getNome());
-        claims.put(persona.getEmail(), persona.getEmail());
-        claims.put(persona.getTelefono(), persona.getTelefono());
-        claims.put(persona.getRuoloPersona().name(), persona.getRuoloPersona().toString());
+        claims.put("nome", persona.getNome());
+        claims.put("email", persona.getEmail());
+        claims.put("telefono", persona.getTelefono());
+        claims.put("ruolo", persona.getRuoloPersona().toString());
         return tokenGenerator(claims);
     }
 

@@ -18,4 +18,6 @@ public interface PersonaMapper {
     /* mapping che server per aggiornare una entity da un dto */
     @Mapping(target = "personaId", ignore = true)
     void updateEntity(@MappingTarget Persona persona, PersonaDto personaDto);
+
+
 }

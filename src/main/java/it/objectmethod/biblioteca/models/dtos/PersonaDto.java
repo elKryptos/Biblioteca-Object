@@ -5,15 +5,12 @@ import it.objectmethod.biblioteca.enums.RuoloPersona;
 import it.objectmethod.biblioteca.validations.BiblioRegexpValidation;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class PersonaDto {
     //@NotBlank(message = "Il nome non può essere vuoto")
     @BiblioRegexpValidation(regexp = "^[0-9A-Za-zÀ-ÖØ-öø-ÿ&_ \\-]+$", message = "Formato numero non valido")

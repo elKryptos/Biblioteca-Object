@@ -1,15 +1,10 @@
 package it.objectmethod.biblioteca.models.dtos;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
 
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
 public class PageableUtenteDto {
     private Long utenteId;

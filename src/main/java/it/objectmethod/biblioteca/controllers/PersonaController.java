@@ -1,10 +1,14 @@
 package it.objectmethod.biblioteca.controllers;
 
+import it.objectmethod.biblioteca.models.dtos.PaginationMetadata;
 import it.objectmethod.biblioteca.models.dtos.PersonaDto;
 import it.objectmethod.biblioteca.models.dtos.ResponseWrapper;
 import it.objectmethod.biblioteca.services.PersonaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -56,6 +60,12 @@ public class PersonaController {
             @RequestBody PersonaDto personaDto) {
         ResponseWrapper<PersonaDto> response = personaService.update(id, personaDto);
         if (response == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<ResponseWrapper<List<PersonaDto>>> getAll (@PageableDefault Pageable pageable) {
+        ResponseWrapper<List<PersonaDto>> response = personaService.paginate(pageable);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

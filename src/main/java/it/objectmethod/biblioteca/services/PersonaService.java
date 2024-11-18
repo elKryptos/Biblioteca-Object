@@ -2,6 +2,7 @@ package it.objectmethod.biblioteca.services;
 
 import it.objectmethod.biblioteca.enums.RuoloPersona;
 import it.objectmethod.biblioteca.exceptions.NotFoundException;
+import it.objectmethod.biblioteca.models.dtos.PaginationMetadata;
 import it.objectmethod.biblioteca.models.dtos.PersonaDto;
 import it.objectmethod.biblioteca.models.dtos.ResponseWrapper;
 import it.objectmethod.biblioteca.models.entities.Persona;
@@ -14,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +30,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 @Service
 @Data
@@ -73,6 +77,19 @@ public class PersonaService {
         personaMapper.updateEntity(persona, personaDto);
         personaRepository.save(persona);
         return new ResponseWrapper<>(Constants.PERSONA_UPDATE, personaMapper.toDto(persona));
+    }
+
+
+    public ResponseWrapper<List<PersonaDto>> paginate(Pageable pageable) {
+        Page<Persona> personaPage = personaRepository.findAll(pageable);
+        List<PersonaDto> personaDtoList = personaPage.getContent().stream().map(personaMapper::toDto).toList();
+        PaginationMetadata pagination = new PaginationMetadata(
+                personaPage.getNumber(),
+                personaPage.getSize(),
+                personaPage.getTotalElements(),
+                personaPage.getTotalPages()
+        );
+        return new ResponseWrapper<>("Lista di persone", personaDtoList, pagination);
     }
 
     public String generaXLS() {

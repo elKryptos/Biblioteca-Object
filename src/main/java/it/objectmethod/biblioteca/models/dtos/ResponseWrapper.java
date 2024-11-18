@@ -2,14 +2,12 @@ package it.objectmethod.biblioteca.models.dtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 import org.springframework.data.domain.Page;
 
-@Getter
-@Setter
-@ToString
+import java.util.List;
+
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseWrapper<TYPE> {
     private String msg;
@@ -27,17 +25,12 @@ public class ResponseWrapper<TYPE> {
 
     public ResponseWrapper(String msg, TYPE type) {
         this.msg = msg;
-        if (type instanceof Page) {
-            Page<TYPE> page = (Page<TYPE>) type;
-            this.type = (TYPE) page.getContent(); // Convert Page content to List
-            this.pagination = new PaginationMetadata(
-                    page.getNumber(),
-                    page.getSize(),
-                    page.getTotalElements(),
-                    page.getTotalPages()
-            );
-        } else {
-            this.type = type;
-        }
+        this.type = type;
+    }
+
+    public ResponseWrapper(String msg, TYPE type, PaginationMetadata pagination) {
+        this.msg = msg;
+        this.type = type;
+        this.pagination = pagination;
     }
 }

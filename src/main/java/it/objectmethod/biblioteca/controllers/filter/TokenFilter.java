@@ -7,6 +7,7 @@ import it.objectmethod.biblioteca.utils.JwtToken;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -14,11 +15,11 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-@Order(2)
+@Order(2)// filtro che si occupa di autentiocazione
+@RequiredArgsConstructor
 public class TokenFilter implements Filter {
 
-    @Autowired
-    private JwtToken jwtToken;
+    private final JwtToken jwtToken;
 
     @Override
     public void doFilter(ServletRequest servletRequest,
@@ -29,6 +30,11 @@ public class TokenFilter implements Filter {
 
         String path = request.getRequestURI();
         if ("/auth/login".equals(path)) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
+        if ("/persona/all".equals(path) || "/persona".equals(path) || "/utente".equals(path)) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
