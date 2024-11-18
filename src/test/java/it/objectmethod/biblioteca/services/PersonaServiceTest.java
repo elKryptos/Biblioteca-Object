@@ -95,7 +95,7 @@ public class PersonaServiceTest {
     @Test
     void shouldUpdatePersona_whenIsvalid() {
 
-        final Long personaId = 1L;
+        Long personaId = 1L;
         final PersonaDto inputDto = personaDto;
         final Persona entityToSave = entity;
         final ResponseWrapper<PersonaDto> expected = new ResponseWrapper<>(PERSONA_UPDATE);
