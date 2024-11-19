@@ -34,7 +34,7 @@ public class TokenFilter implements Filter {
             return;
         }
 
-        if ("/persona/all".equals(path) || "/persona".equals(path) || "/utente".equals(path)) {
+        if ("/persona/all".equals(path) || "/persona".equals(path) || "/utente".equals(path) || "/persona/create".equals(path)) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }

@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -50,7 +51,7 @@ public class PersonaleService {
         ruoloRepository.save(ruolo);
 
         Personale personale = new Personale();
-        personale.setDataAssunzione(LocalDate.now());
+        personale.setDataAssunzione(new Date());
         personale.setRuolo(ruolo);
         personale.setPersona(persona);
         personaleRepository.save(personale);

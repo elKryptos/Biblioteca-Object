@@ -1,4 +1,4 @@
-package it.objectmethod.biblioteca.services;
+package it.objectmethod.biblioteca.unit.services;
 
 import it.objectmethod.biblioteca.enums.RuoloPersona;
 import it.objectmethod.biblioteca.models.dtos.PersonaDto;
@@ -6,19 +6,17 @@ import it.objectmethod.biblioteca.models.dtos.ResponseWrapper;
 import it.objectmethod.biblioteca.models.entities.Persona;
 import it.objectmethod.biblioteca.models.mappers.PersonaMapper;
 import it.objectmethod.biblioteca.repositories.PersonaRepository;
+import it.objectmethod.biblioteca.services.PersonaService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoSettings;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @MockitoSettings

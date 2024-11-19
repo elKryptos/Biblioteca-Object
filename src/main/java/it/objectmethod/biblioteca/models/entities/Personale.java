@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Data
@@ -15,7 +15,7 @@ public class Personale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long personaleId;
-    private LocalDate dataAssunzione;
+    private Date dataAssunzione;
 
     @ManyToOne
     @JoinColumn(name = "persona_id", referencedColumnName = "personaId")
