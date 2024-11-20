@@ -48,7 +48,7 @@ public class BackendResponse {
                 HttpStatus.BAD_REQUEST,
                 fieldErrors
         );
-        return new ResponseWrapper<>("Validation error", errorDetails);
+        return new ResponseWrapper<>("Validation error test", errorDetails);
     }
 
     @ExceptionHandler(NotFoundException.class)

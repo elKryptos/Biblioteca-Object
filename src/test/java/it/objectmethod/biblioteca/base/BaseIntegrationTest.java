@@ -37,15 +37,15 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 
 
 /*
-* Classe base astratta per i test di integrazione. Fornisce metodi di utilità per la gestione del caching,
-* creazione di stubs, e verifica delle risposte HTTP, utilizzando WireMock e altre librerie per il testing.
-*/
+ * Classe base astratta per i test di integrazione. Fornisce metodi di utilità per la gestione del caching,
+ * creazione di stubs, e verifica delle risposte HTTP, utilizzando WireMock e altre librerie per il testing.
+ */
 @SpringBootTest(classes = BibliotecaApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles({"test"})
 @Sql(scripts = {
         "classpath:/dbH2/01-truncate.sql",
         "classpath:/dbH2/02-insertPersona.sql"
-}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
 public abstract class BaseIntegrationTest {
 
     @LocalServerPort

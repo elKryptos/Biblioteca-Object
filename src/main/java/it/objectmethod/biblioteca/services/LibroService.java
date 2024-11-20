@@ -30,11 +30,11 @@ public class LibroService {
     private final LibroMapper libroMapper;
 
     public ResponseWrapper<List<LibroDto>> getAll() {
-//        List<Libro> libros = libroRepository.findAll();
-//        List<LibroDto> libroDtos = libroMapper.toDtoList(libros);
-//        return new ResponseWrapper<>(Constants.LIBRO_TROVATO, libroDtos);
         List<LibroDto> libroList = libroMapper.toDtoList(libroRepository.findAll());
-        return new ResponseWrapper(Constants.LIBRO_TROVATO, libroList);
+        if (libroList.isEmpty()) {
+            return new ResponseWrapper<>(Constants.LIBRO_NON_TROVATO);
+        }
+        return new ResponseWrapper<>(Constants.LIBRO_TROVATO, libroList);
     }
 
     public ResponseWrapper<LibroDto> create(LibroDto libroDto) {

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-@Order(2)// filtro che si occupa di autentiocazione
+@Order(2)// filtro che si occupa di autenticazione
 @RequiredArgsConstructor
 public class TokenFilter implements Filter {
 
@@ -34,7 +34,18 @@ public class TokenFilter implements Filter {
             return;
         }
 
-        if ("/persona/all".equals(path) || "/persona".equals(path) || "/utente".equals(path) || "/persona/create".equals(path)) {
+        if (path != null && path.matches("/persona/\\w+$")) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
+        if (path != null && path.matches("/persona/update/\\w+$")) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
+        if ("/persona/all".equals(path) || "/persona".equals(path) ||
+                "/persona/create".equals(path)) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }

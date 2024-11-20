@@ -57,9 +57,10 @@ public class PersonaServiceTest {
     @Test
     void shouldgetAll_whenIsValid() {
 
-        final ResponseWrapper<List<PersonaDto>> expected = new ResponseWrapper<>(LISTA_TROVATA);
         final List<PersonaDto> dtoList = List.of(personaDto);
-        expected.setType(dtoList);
+        final ResponseWrapper<List<PersonaDto>> expected = new ResponseWrapper<>(LISTA_TROVATA, dtoList);
+
+        //expected.setType(dtoList);
 
         final List<Persona> entities = List.of(entity);
 
@@ -96,8 +97,8 @@ public class PersonaServiceTest {
         Long personaId = 1L;
         final PersonaDto inputDto = personaDto;
         final Persona entityToSave = entity;
-        final ResponseWrapper<PersonaDto> expected = new ResponseWrapper<>(PERSONA_UPDATE);
-        expected.setType(inputDto);
+        final ResponseWrapper<PersonaDto> expected = new ResponseWrapper<>(PERSONA_UPDATE, personaDto);
+        //expected.setType(inputDto);
 
         when(personaRepository.findById(personaId)).thenReturn(Optional.of(entityToSave));
         when(personaMapper.updateEntity(entityToSave, inputDto)).thenReturn(entityToSave);

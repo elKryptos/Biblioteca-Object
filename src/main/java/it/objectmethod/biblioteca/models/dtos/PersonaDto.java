@@ -21,7 +21,7 @@ public class PersonaDto {
     @NotBlank(message = "Il numero di telfono non può essere vuoto")
     private String telefono;
     @NotBlank
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private RuoloPersona ruoloPersona;
 }

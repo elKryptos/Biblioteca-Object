@@ -1,12 +1,10 @@
 package it.objectmethod.biblioteca.controllers;
 
-import it.objectmethod.biblioteca.models.dtos.PaginationMetadata;
 import it.objectmethod.biblioteca.models.dtos.PersonaDto;
 import it.objectmethod.biblioteca.models.dtos.ResponseWrapper;
 import it.objectmethod.biblioteca.services.PersonaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
