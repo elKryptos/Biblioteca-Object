@@ -2,16 +2,14 @@ package it.objectmethod.biblioteca.exceptions.core;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.extern.jackson.Jacksonized;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.Map;
 
-@Jacksonized
+//@Jacksonized
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

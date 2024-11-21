@@ -5,7 +5,6 @@ import it.objectmethod.biblioteca.models.dtos.LibroDto;
 import it.objectmethod.biblioteca.models.dtos.ResponseWrapper;
 import it.objectmethod.biblioteca.services.LibroService;
 import it.objectmethod.biblioteca.utils.Constants;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

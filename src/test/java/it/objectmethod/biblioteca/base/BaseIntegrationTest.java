@@ -44,8 +44,9 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 @ActiveProfiles({"test"})
 @Sql(scripts = {
         "classpath:/dbH2/01-truncate.sql",
-        "classpath:/dbH2/02-insertPersona.sql"
-}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
+        "classpath:/dbH2/02-insertPersona.sql",
+        "classpath:/dbH2/03-insertLibro.sql"
+}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public abstract class BaseIntegrationTest {
 
     @LocalServerPort

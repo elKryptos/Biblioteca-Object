@@ -8,7 +8,6 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -49,6 +48,17 @@ public class TokenFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
+
+        if (path != null && path.matches("/libro/update/\\w+$")) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
+        if ("/libro/all".equals(path) || "/libro/create".equals(path)) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
         String header = request.getHeader("Authorization");
         if (header != null && header.startsWith("Bearer")) {
             String token = header.substring(7);

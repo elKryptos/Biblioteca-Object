@@ -4,6 +4,7 @@ import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
 import it.objectmethod.biblioteca.base.BaseIntegrationTest;
 import it.objectmethod.biblioteca.enums.RuoloPersona;
+import it.objectmethod.biblioteca.models.dtos.PaginationMetadata;
 import it.objectmethod.biblioteca.models.dtos.PersonaDto;
 import it.objectmethod.biblioteca.models.dtos.ResponseWrapper;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,6 @@ import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class PersonaIntegrationTest extends BaseIntegrationTest {
 
@@ -25,21 +25,22 @@ public class PersonaIntegrationTest extends BaseIntegrationTest {
     private static final String PERSONA_TROVATA = "Persona trovata!";
     private static final String PERSONA_UPDATE = "Persona updated!";
     private static final String PERSONA_CREATA = "Persona creata!";
+    //private static final String
 
     static final List<PersonaDto> personaDto = List.of(
             PersonaDto.builder()
                     .nome("Mario Rossi")
-                    .email("mario.rossis@example.com")
+                    .email("mario.rossi@example.com")
                     .telefono("1234567890")
-                    .password("123456")
+                    .password("password123")
                     .ruoloPersona(RuoloPersona.GOLD)
                     .build(),
 
             PersonaDto.builder()
                     .nome("Luca Bianchi")
-                    .email("luca.bianchis@example.com")
+                    .email("luca.bianchi@example.com")
                     .telefono("2345678901")
-                    .password("123456")
+                    .password("password123")
                     .ruoloPersona(RuoloPersona.SILVER)
                     .build()
     );
@@ -128,12 +129,20 @@ public class PersonaIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturnPersonaCreate_whenCreatePersona() {
 
+        PersonaDto personaDto1 = PersonaDto.builder()
+                .nome("Joe Biden")
+                .email("joe.biden@example.com")
+                .telefono("2345678901")
+                .password("123456")
+                .ruoloPersona(RuoloPersona.SILVER)
+                .build();
+
         ResponseWrapper<PersonaDto> expected = new ResponseWrapper<>(PERSONA_CREATA);
 
         ResponseWrapper<PersonaDto> actual = given()
                 .port(this.port)
                 .contentType(ContentType.JSON)
-                .body(personaDto.get(0))
+                .body(personaDto1)
                 .when()
                 .post("persona/create")
                 .then()
@@ -141,6 +150,36 @@ public class PersonaIntegrationTest extends BaseIntegrationTest {
                 .extract()
                 .response()
                 .prettyPeek()
+                .body()
+                .as(new TypeRef<>() {});
+
+        assertThat(actual)
+                .usingRecursiveComparison()
+                .isEqualTo(expected);
+    }
+
+    @Test
+    void shouldReturnPaginatedPersonaList_whenPaginate() {
+
+        int page = 0;
+        int size = 10;
+
+        PaginationMetadata expectedPagination = new PaginationMetadata(0, 10, 2, 1);
+
+        ResponseWrapper<List<PersonaDto>> expected = new ResponseWrapper<>
+                ("Lista di persone", personaDto, expectedPagination);
+
+        ResponseWrapper<List<PersonaDto>> actual = given()
+                .port(this.port)
+                .contentType(ContentType.JSON)
+                .param("page", String.valueOf(page))
+                .param("size", String.valueOf(size))
+                .when()
+                .get("persona")
+                .then()
+                .statusCode(200)
+                .extract()
+                .response()
                 .body()
                 .as(new TypeRef<>() {});
 

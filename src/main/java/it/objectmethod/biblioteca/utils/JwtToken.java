@@ -1,11 +1,9 @@
 package it.objectmethod.biblioteca.utils;
 
 import io.jsonwebtoken.*;
-import it.objectmethod.biblioteca.exceptions.NotFoundException;
 import it.objectmethod.biblioteca.models.entities.Persona;
 import it.objectmethod.biblioteca.repositories.PersonaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

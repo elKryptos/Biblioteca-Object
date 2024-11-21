@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +25,7 @@ public class Libro {
     private String isbn;
     private String genere;
     private String editor;
-    private Date annoPubblicazione;
+    private LocalDate annoPubblicazione;
     private int copie;
 
     public List<String> allProperties() {

@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoSettings;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +38,7 @@ class LibroServiceTest {
     static final LibroDto libroDto = LibroDto.builder()
             .copie(1)
             .isbn("isbn")
-            .annoPubblicazione(new Date())
+            .annoPubblicazione(LocalDate.now())
             .titolo("titolo")
             .autore("autore")
             .editor("editor")
@@ -47,7 +48,7 @@ class LibroServiceTest {
     static final Libro entity = Libro.builder()
             .copie(1)
             .isbn("isbn")
-            .annoPubblicazione(new Date())
+            .annoPubblicazione(LocalDate.now())
             .titolo("titolo")
             .autore("autore")
             .editor("editor")

@@ -1,11 +1,17 @@
 package it.objectmethod.biblioteca.models.dtos;
 
 import it.objectmethod.biblioteca.validations.BiblioRegexpValidation;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -26,7 +32,7 @@ public class LibroDto {
     @NotBlank(message = "L'editoriale non può essere vuoto")
     private String editor;
     @NotNull(message = "L'anno di pubbicazione non può essere vuoto")
-    private Date annoPubblicazione;
+    private LocalDate annoPubblicazione;
     @NotNull
     @Min(value = 3, message = "Il numero minimo dev'essere almeno 3")
     private int copie;
