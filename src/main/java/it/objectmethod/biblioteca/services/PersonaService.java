@@ -79,7 +79,6 @@ public class PersonaService {
         return new ResponseWrapper<>(Constants.PERSONA_UPDATE, personaMapper.toDto(persona));
     }
 
-
     public ResponseWrapper<List<PersonaDto>> paginate(Pageable pageable) {
         Page<Persona> personaPage = personaRepository.findAll(pageable);
         List<PersonaDto> personaDtoList = personaPage.getContent().stream().map(personaMapper::toDto).toList();
