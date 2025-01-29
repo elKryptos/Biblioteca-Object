@@ -16,9 +16,9 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @CrossOrigin
 @RequestMapping("/persona")
+@RequiredArgsConstructor
 public class PersonaController {
 
     private final PersonaService personaService;

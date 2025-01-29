@@ -1,7 +1,7 @@
 insert into persona (nome, email, telefono, password, ruolo_persona) values
 ('Mario Rossi', 'mario.rossi@example.com', '1234567890', 'password123', 'GOLD'),
 ('Luca Bianchi', 'luca.bianchi@example.com', '2345678901', 'password123', 'SILVER');
--- ('Anna Verdi', 'anna.verdi@example.com', '3456789012', 'password123', 'BRONZE'),
+-- ('Anna Verdi', 'anna.verdi@examchatgpt.comple.com', '3456789012', 'password123', 'BRONZE'),
 -- ('Giovanni Neri', 'giovanni.neri@example.com', '4567890123', 'password123', 'SILVER'),
 -- ('Sara Gialli', 'sara.gialli@example.com', '5678901234', 'password123', 'GOLD'),
 -- ('Paolo Blu', 'paolo.blu@example.com', '6789012345', 'password123', 'SILVER'),
